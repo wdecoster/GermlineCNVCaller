@@ -1,4 +1,6 @@
-# GermlineCNVCaller
+# GATK GermlineCNVCaller
+Using GATK-4.beta.5
+
 ## Get suitable samples
 
 - Ran with seqcapv3
@@ -22,6 +24,7 @@ Output path for inferred model parameters, posteriors, and checkpoints.
 
 
 ### CalculateTargetCoverage
+https://software.broadinstitute.org/gatk/gatkdocs/4.beta.5/org_broadinstitute_hellbender_tools_exome_CalculateTargetCoverage.php
 ```bash
 CalculateTargetCoverage --input <bamfiles> --output <outputfilename>
 ```
