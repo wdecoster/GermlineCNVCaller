@@ -1,6 +1,11 @@
 # GermlineCNVCaller
 ## Get suitable samples
 
+- Ran with seqcapv3
+- on-target coverage >20x for at least 75%
+
+Perform gentli query using [find_good_samples.py](https://github.com/wdecoster/GermlineCNVCaller/blob/master/find_good_samples.py)
+
 ## Arguments to GermlineCNVCaller
 * --jobType  
 either LEARN_AND_CALL or CALL_ONLY
