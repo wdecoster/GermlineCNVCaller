@@ -61,10 +61,10 @@ gatk-launch --javaOptions "-DGATK_STACKTRACE_ON_USER_EXCEPTION=true -Xmx16g" Ger
  --jobType LEARN_AND_CALL \
  --input test_targetcoverage \
  --contigAnnotationsTable hg19_contig_annotations.tsv \
- --copyNumberTransitionPriorTable hg19_germline_CN_priors.tsv \
+ --copyNumberTransitionPriorTable /home/wdecoster/wes/GermlineCNVCaller/hg19_germline_CN_priors.tsv \
  --outputPath test_results \
  --sexGenotypeTable test.sexgenotype \
- --targets processed_targets.tsv \
+ --targets processed_targets_mod.tsv \
  --disableSpark true \
  --rddCheckpointing false
 ```
