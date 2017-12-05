@@ -31,14 +31,17 @@ bedtools merge -d 5 -i <(tail -n +2 targets.tsv) -c 4 -o distinct > processed_ta
 
 ### CalculateTargetCoverage
 https://software.broadinstitute.org/gatk/gatkdocs/4.beta.5/org_broadinstitute_hellbender_tools_exome_CalculateTargetCoverage.php
+
 ```bash
-CalculateTargetCoverage --input <bamfiles> --output <outputfilename>
+for i in bams/*.bam;
+do
+echo "--input " $(readlink -f $i) >> bams.fofn;
+done
+```
 
-gatk-launch CalculateTargetCoverage --input bams/*.bam --output targetcoverage
-
+```
 gatk-launch CalculateTargetCoverage \
- --input bams/map-rdsbwa-D10012_8_66000_hg19s.bam \
- --input bams/map-rdsbwa-D10406_3_66001_hg19s.bam \
+ --arguments_file <( cat bams.fofn | tr '\n' ' ')\
  --output test_targetcoverage \
  -L processed_targets.bed \
  --groupBy SAMPLE
