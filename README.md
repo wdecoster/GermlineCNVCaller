@@ -37,12 +37,11 @@ for i in bams/*.bam;
 do
 echo "--input " $(readlink -f $i) >> bams.fofn;
 done
-```
+cat bams.fofn | tr '\n' ' ' > arguments-bams.txt
 
-```
-gatk-launch CalculateTargetCoverage \
- --arguments_file <( cat bams.fofn | tr '\n' ' ')\
- --output test_targetcoverage \
+gatk-launch  --javaOptions "-Xmx100g" CalculateTargetCoverage \
+ --arguments_file arguments-bams.txt \
+ --output target_coverage.txt \
  -L processed_targets.bed \
  --groupBy SAMPLE
 ```
@@ -51,16 +50,7 @@ gatk-launch CalculateTargetCoverage \
 ### GermlineCNVCaller
 
 ```bash
- gatk-launch --javaOptions "-Xmx16g" GermlineCNVCaller \
-   --jobType LEARN_AND_CALL \
-   --input combined_read_counts.tsv \
-   --contigAnnotationsTable grch37_contig_annotations.tsv \
-   --copyNumberTransitionPriorTable grch37_germline_CN_priors.tsv \
-   --outputPath learn_and_call_results \
-   --sexGenotypeTable SEX_GENOTYPES.tsv \
-   --disableSpark true
-
-gatk-launch --javaOptions "-DGATK_STACKTRACE_ON_USER_EXCEPTION=true -Xmx16g" GermlineCNVCaller \
+ gatk-launch --javaOptions "-DGATK_STACKTRACE_ON_USER_EXCEPTION=true -Xmx100g" GermlineCNVCaller \
  --jobType LEARN_AND_CALL \
  --input test_targetcoverage \
  --contigAnnotationsTable hg19_contig_annotations.tsv \
