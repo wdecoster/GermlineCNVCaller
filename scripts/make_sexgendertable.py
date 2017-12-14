@@ -12,7 +12,10 @@ def search_gender(indiv):
     cur = con.cursor()
     cur.execute('select "id", "gender" from "NBD_SC:individual" \
                where "id" = ?', (indiv, ))
-    return sex_genotype[cur.fetchall()[0][1]]
+    try:
+        return sex_genotype[cur.fetchall()[0][1]]
+    except KeyError:
+        sys.stderr.write("No gender found for {}\n".format(indiv))
 
 
 def main():
@@ -22,7 +25,7 @@ def main():
         try:
             print("{}\t{}".format(sample.strip(), search_gender(sample.split('_')[0].lower())))
         except IndexError:
-            sys.stderr.write("Problem parsing {}".format(sample))
+            sys.stderr.write("Problem parsing {}\n".format(sample.strip()))
 
 
 if __name__ == '__main__':
