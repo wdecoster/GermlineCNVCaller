@@ -44,8 +44,14 @@ gatk-launch  --javaOptions "-Xmx100g" CalculateTargetCoverage \
  --output target_coverage.txt \
  -L processed_targets.bed \
  --groupBy SAMPLE
-```
 
+python scripts/infer_gender.py | sed s/map-rdsbwa-// > inferred_genders
+
+cat target_coverage.txt | grep '^contig' | cut -f4- | tr '\t' '\n' > samples
+
+echo -e "SAMPLE_NAME\tSEX_GENOTYPE" > samples.gender.txt
+cat <(paste <(sort -k1,1 samples) <(sort -k1,1 inferred_genders | cut -f2 | sed s/f/chrXchrX/ | sed s/m/chrXchrY/)) >> samples.gender.txt
+ ```
 
 ### GermlineCNVCaller
 
