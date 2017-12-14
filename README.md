@@ -56,13 +56,13 @@ cat <(paste <(sort -k1,1 samples) <(sort -k1,1 inferred_genders | cut -f2 | sed 
 ### GermlineCNVCaller
 
 ```bash
- gatk-launch --javaOptions "-DGATK_STACKTRACE_ON_USER_EXCEPTION=true -Xmx100g" GermlineCNVCaller \
+ gatk-launch --javaOptions "-Ddtype=double -DGATK_STACKTRACE_ON_USER_EXCEPTION=true -Xmx100g" GermlineCNVCaller \
  --jobType LEARN_AND_CALL \
- --input test_targetcoverage \
+ --input target_coverage.txt \
  --contigAnnotationsTable hg19_contig_annotations.tsv \
  --copyNumberTransitionPriorTable /home/wdecoster/wes/GermlineCNVCaller/hg19_germline_CN_priors.tsv \
- --outputPath test_results \
- --sexGenotypeTable test.sexgenotype \
+ --outputPath results \
+ --sexGenotypeTable samples.gender.txt \
  --targets processed_targets_mod.tsv \
  --disableSpark true \
  --rddCheckpointing false
